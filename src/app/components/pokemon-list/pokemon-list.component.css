@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+
+.table {
+  width: 100%;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  padding: .75em 15em 0 .75em !important;
+}
+
+/* .mat-mdc-row:nth-child(odd) {
+  background-color: #f2f2f2;
+} */
+
+.mat-header-cell {
+  background-color: #003366;
+  color: white;
+  font-weight: bold;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.btn-primary-verde {
+    background-color: #28a745; /* Un tono de verde */
+    color: white;
+}

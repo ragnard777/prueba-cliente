@@ -1,0 +1,9 @@
+
+p {
+    margin-top: 40px;
+}
+
+.btn-primary-verde {
+    background-color: #28a745; /* Un tono de verde */
+    color: white;
+}

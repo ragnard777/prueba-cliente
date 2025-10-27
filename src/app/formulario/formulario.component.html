@@ -1,0 +1,24 @@
+<div class="flex-row mb-3">
+  <div class="p-2">
+    <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
+<p>
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre</mat-label>
+      <input matInput id="nombre" formControlName="nombre" placeholder="Placeholder">
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>Url</mat-label>
+      <input matInput formControlName="url" placeholder="Placeholder">
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    </mat-form-field>
+  </p>
+  <div class="container">
+      <button class="button btn btn-primary-verde " >{{nombre_boton}}</button>
+      <button (click)="irHome()" class="button btn btn-primary ms-2" >Home</button>
+  </div>
+</form>
+  </div>
+</div>

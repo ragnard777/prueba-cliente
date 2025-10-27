@@ -1,0 +1,40 @@
+
+<section>
+    <mat-form-field appearance="fill">
+        <mat-label>Buscar</mat-label>
+        <input (keyup)="buscarPokemon($event)" matInput #input placeholder="Nombre">
+      </mat-form-field>
+</section>
+<div class="container">
+
+    <table mat-table [dataSource]="datasource">
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>Id</th>
+            <td mat-cell *matCellDef="let element">{{element.id}}</td>
+        </ng-container>
+        <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef>Nombre</th>
+            <td mat-cell *matCellDef="let element">{{element.nombre}}</td>
+        </ng-container>
+        <ng-container matColumnDef="url">
+            <th mat-header-cell *matHeaderCellDef>Url</th>
+            <td mat-cell *matCellDef="let element">{{element.url}}</td>
+        </ng-container>
+        <ng-container matColumnDef="eliminar">
+            <th mat-header-cell *matHeaderCellDef>Eliminar</th>
+            <td mat-cell *matCellDef="let element;"><span (click)="eliminarPokemon(element)" class="material-icons pointer">delete</span><span (click)="editarPokemon(element.id)" class="material-icons pointer ms-2">edit</span></td> 
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns:displayedColumns;" ></tr>
+    </table>
+
+
+    <mat-paginator #paginator [length]="paginacion" [pageSize]="largoListaPokemon"
+        [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+    </mat-paginator>
+    <div class="d-flex justify-content-start">
+        <button (click)="agregarPokemon()"  class="btn btn-primary-verde ">Agregar Nuevo Pokemon</button>
+        <button (click)="eliminarPokemones()" class="btn btn-primary ms-4">Eliminar base de datos</button>
+  
+</div>
+</div>

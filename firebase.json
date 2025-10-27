@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/app-pokemon151",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
