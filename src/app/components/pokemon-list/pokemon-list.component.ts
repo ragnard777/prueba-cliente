@@ -43,7 +43,6 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
 
     let pokemonesGuardados = this._pokemonService.hayPokemonesGuardados();
     if(!pokemonesGuardados || typeof pokemonesGuardados == "undefined"){
-      console.log('no tengo pokemones guardados, asi que pido una lista nueva.');
     this.pokemonesSubscription = this._pokemonService.validarPokemones().subscribe((resp:any) => {
        this.pokemonesLocal = resp;
        this._pokemonService.guardarPokemones(resp);
@@ -51,8 +50,6 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
       this.setearPaginator();
     });
     } else{
-      console.log(' tengo pokemones guardados, asi que los pido .');
-      
         this.pokemonesLocal = this._pokemonService.rescatarPokemones();
         this.inicializacionDeVariables(this.pokemonesLocal);
         this.setearPaginator();
@@ -60,8 +57,6 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
   }
 
   eliminarPokemon(pokemon:any) {
-    console.log("eliminarpokemon variable pokemon ",pokemon)
-    
     this._pokemonService.eliminarPokemonEspecifico(pokemon.id);
                      this.datasource = new MatTableDataSource<Element>(this.datasource.pokemones);
         setTimeout(() => {

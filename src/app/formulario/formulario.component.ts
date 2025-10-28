@@ -27,8 +27,6 @@ export class FormularioComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    console.log('pokemon id', this.pokemonId );
-    
     if(typeof this.pokemonId != 'undefined' || this.pokemonId != null){
       this.id = this.pokemonId;
       this.nombre_boton = 'Editar';
@@ -40,23 +38,19 @@ export class FormularioComponent implements OnInit {
 
   onSubmit(customerData:any) {
     if(this.checkoutForm.valid){
-     console.log("customerData",customerData);
      this.guardarPokemon(customerData);
      this.checkoutForm.reset();
     }else{
       console.warn("El formulario no es valido !!")
     }
-    
   }
 
   guardarPokemon(customerData:any){
     if(typeof this.pokemonId != 'undefined'){
       const pokemon:any = {nombre:customerData.nombre, url:customerData.url,id:this.pokemonId}
       this.pokemonService_.editarPokemon(pokemon);
-       console.log("porkemon editado");
     }else{
       this.pokemonService_.agregarNuevoPokemon(customerData);
-      console.log("porkemon guardado");
     }
     setTimeout(() => {
        this.irHome();

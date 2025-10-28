@@ -23,7 +23,6 @@ export class CuPokemonService {
         }
     };
     response = this._http.get(params.url, params.HttpOptions);
-    console.log("Estoy en el caso de uso", response);
     return response;
 }
 }

@@ -15,15 +15,12 @@ export class HomeComponent implements OnInit {
   constructor(private _pokemonService: PokemonService) { }
 
   ngOnInit(): void {
-    console.log("estoy en el home");
-    
     this.listarNombresDePokemones();
   }
 
    listarNombresDePokemones() {
     let pokemonesGuardados = this._pokemonService.hayPokemonesGuardados();
     let pokemonesRescatados:any = [];
-    console.log("pokemonesGuardados ",pokemonesGuardados);
     
     if(!pokemonesGuardados || typeof pokemonesGuardados == "undefined"){
     this.pokemonesSubscription = this._pokemonService.validarPokemones().subscribe((resp:any) => {
@@ -32,8 +29,6 @@ export class HomeComponent implements OnInit {
     });
   }else{
         pokemonesRescatados = this._pokemonService.rescatarPokemones();
-        console.log("pokemones rescatados",pokemonesRescatados);
-        
         this.pokemonesDesdeElPadre = pokemonesRescatados;
   }
   }

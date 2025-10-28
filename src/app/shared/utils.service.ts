@@ -25,7 +25,6 @@ export class UtilsService {
 agregarIndex(pokemones){
   let resultado = [];
   pokemones.forEach((element,i) => {
-    console.log("indice", i);
     resultado.push({id:i,nombre:element.name, url:element.url});
   });
   return resultado;

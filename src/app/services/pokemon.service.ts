@@ -19,7 +19,6 @@ export class PokemonService {
       this._cuPokemon.obtenerPokemones().subscribe(resp => {
           let arreglado = this.utils.ordenarArray(resp.results);
           respuesta = { estado: "ok", pokemones:  arreglado, paginacion: resp.results.length };
-          console.log("respuesta ", respuesta);
           observer.next(respuesta);
           observer.complete();
     });
@@ -80,7 +79,6 @@ export class PokemonService {
   eliminarPokemonesGuardados(): void {
     try {
       localStorage.removeItem(this.STORAGE_KEY);
-      console.log('Pokémon eliminados con Éxito del Local Storage.');
     } catch (error) {
       console.error('Error al eliminar de Local Storage', error);
     }
@@ -114,9 +112,19 @@ if (pokemonesGuardados) {
       return; 
     }
 
-    pokemonesGuardados.pokemones.push({nombre:nuevoPokemon.nombre,url:nuevoPokemon.url,id:pokemonesGuardados.pokemones.length});
+    const idNuevo = this.obtenerId(pokemonesGuardados.pokemones);
+
+    pokemonesGuardados.pokemones.push({nombre:nuevoPokemon.nombre,url:nuevoPokemon.url,id:idNuevo});
     this.guardarPokemones({estado:"ok", paginacion:pokemonesGuardados.paginacion, pokemones:pokemonesGuardados.pokemones});
   }
+
+  obtenerId(pokemones:any): number {
+  if (pokemones.length === 0) {
+    return 0;
+  }
+  const ultimoId = Math.max(...pokemones.map((p:any) => p.id));
+  return ultimoId + 1;
+}
 
   editarPokemon(pokemonEditado: any): boolean {
     let pokemones = this.rescatarPokemones()
@@ -127,7 +135,6 @@ if (pokemonesGuardados) {
     if (index !== -1) {
       pokemonesActuales[index] = pokemonEditado;
       this.guardarPokemones({estado:"ok",indice:indice, pokemones:pokemonesActuales});
-      console.log(`Pokémon con índice ${pokemonEditado.id} editado.`);
       return true;
     } else {
       console.error(`No se encontró el Pokémon con índice ${pokemonEditado.id} para editar.`);
@@ -153,8 +160,6 @@ if (pokemonesGuardados) {
     };
     
     this.guardarPokemones(nuevoPokemones); 
-
-    console.log(`Pokémon con ID ${pokemonId} eliminado.`);
     return true;
   } else {
     console.warn(`No se encontró el Pokémon con ID ${pokemonId} para eliminar.`);

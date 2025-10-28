@@ -16,7 +16,6 @@ export class EditPokemonComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.pokemonId = params.get('id'); // Obtiene el valor del parámetro 'id'
-      console.log('ID del Pokémon a editar:', this.pokemonId);
       if (this.pokemonId) {
         // Convierte a número si es necesario para tu lógica
         this.pokemonId_ = +this.pokemonId; 
