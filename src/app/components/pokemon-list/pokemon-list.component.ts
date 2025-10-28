@@ -17,7 +17,7 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
 
   pokemonesSubscription: Subscription;
   paginacion;
-  displayedColumns: string[] = ['id','nombre', 'url', 'eliminar']
+  displayedColumns: string[] = ['id','nombre', 'url', 'accion']
   datasource: any;
   selection = new SelectionModel<any>(true, []);
   resetPokemon = [];
@@ -31,20 +31,10 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
   constructor(private _pokemonService: PokemonService,private router: Router) { }
 
   ngOnInit(): void {
-    console.log("estoy en el listar-pokemones");
-    
-/*     console.log("this._pokemonService.hayPokemonesGuardados()",this._pokemonService.hayPokemonesGuardados());
-    
-    if(this._pokemonService.hayPokemonesGuardados()){
-      this.inicializacionDeVariables(this._pokemonService.rescatarPokemones());
-      this.setearPaginator();
-    } */
     this.listarNombresDePokemones();
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    //console.log("[ngOnChanges]");
-    //console.log("[ngOnChanges] pokemonesDesdeElHijo", this._pokemonesDesdeElHijo);
     this.pokemonesLocal = this._pokemonesDesdeElHijo;
 }
 
@@ -53,13 +43,17 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
 
     let pokemonesGuardados = this._pokemonService.hayPokemonesGuardados();
     if(!pokemonesGuardados || typeof pokemonesGuardados == "undefined"){
+      console.log('no tengo pokemones guardados, asi que pido una lista nueva.');
     this.pokemonesSubscription = this._pokemonService.validarPokemones().subscribe((resp:any) => {
+       this.pokemonesLocal = resp;
+       this._pokemonService.guardarPokemones(resp);
       this.inicializacionDeVariables(resp);
       this.setearPaginator();
     });
     } else{
+      console.log(' tengo pokemones guardados, asi que los pido .');
+      
         this.pokemonesLocal = this._pokemonService.rescatarPokemones();
-        //this.pokemonesLocal = this._pokemonesDesdeElHijo;
         this.inicializacionDeVariables(this.pokemonesLocal);
         this.setearPaginator();
   }
@@ -69,7 +63,6 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
     console.log("eliminarpokemon variable pokemon ",pokemon)
     
     this._pokemonService.eliminarPokemonEspecifico(pokemon.id);
-    //this.eliminamosYActualizamosPaginacion(pokemon.nombre);
                      this.datasource = new MatTableDataSource<Element>(this.datasource.pokemones);
         setTimeout(() => {
           this.datasource.paginator = this.paginator;
@@ -105,18 +98,6 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
         this.datasource.paginator = this.paginator;
       });
     }
-    /*   if(nombrePokemon !==""){
-        let result = this.datasource.data.filter(item => item.name.indexOf(nombrePokemon) !== -1);
-        this.datasource = new MatTableDataSource<Element>(result);
-        setTimeout(() => {
-          this.datasource.paginator = this.paginator;
-        });
-      }else{
-        this.datasource = new MatTableDataSource<Element>(this.resetPokemon);
-        setTimeout(() => {
-          this.datasource.paginator = this.paginator;
-        });
-      } */
   }
 
   ngAfterViewInit(): void {
@@ -141,7 +122,7 @@ export class PokemonListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  public editarPokemon(id: number | string): void {
+  editarPokemon(id: number | string): void {
     this.router.navigate(['/edit-pokemon', id]);
   }
 

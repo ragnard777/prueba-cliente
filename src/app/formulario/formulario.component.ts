@@ -52,15 +52,15 @@ export class FormularioComponent implements OnInit {
   guardarPokemon(customerData:any){
     if(typeof this.pokemonId != 'undefined'){
       const pokemon:any = {nombre:customerData.nombre, url:customerData.url,id:this.pokemonId}
-      console.log("pokemon ",pokemon);
-      
       this.pokemonService_.editarPokemon(pokemon);
        console.log("porkemon editado");
     }else{
       this.pokemonService_.agregarNuevoPokemon(customerData);
       console.log("porkemon guardado");
     }
-    this.irHome();
+    setTimeout(() => {
+       this.irHome();
+    }, 500);
   }
 
   irHome(){

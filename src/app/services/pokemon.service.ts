@@ -88,8 +88,6 @@ export class PokemonService {
 
   agregarNuevoPokemon(nuevoPokemon: any): void {
     let pokemonesGuardados = this.rescatarPokemones();
-
-    let pokemones = pokemonesGuardados.pokemones
     let paginacion = pokemonesGuardados.paginacion;
 
     let pokemonesActuales: any[];
@@ -116,7 +114,7 @@ if (pokemonesGuardados) {
       return; 
     }
 
-    pokemonesGuardados.pokemones.push({nombre:nuevoPokemon.nombre,url:nuevoPokemon.url,id:paginacion});
+    pokemonesGuardados.pokemones.push({nombre:nuevoPokemon.nombre,url:nuevoPokemon.url,id:pokemonesGuardados.pokemones.length});
     this.guardarPokemones({estado:"ok", paginacion:pokemonesGuardados.paginacion, pokemones:pokemonesGuardados.pokemones});
   }
 
